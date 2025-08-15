@@ -1,28 +1,27 @@
-enum Color {
-    Rgb(i32, i32, i32),
-    Hsv(i32, i32, i32),
+#[derive(Debug)]
+struct Point {
+    x: i32,
+    y: i32,
 }
-
-enum Message {
-    Quit,
-    Move { x: i32, y: i32 },
-    Write(String),
-    ChangeColor(Color),
-}
-
 fn main() {
-    let msg = Message::ChangeColor(Color::Hsv(0, 160, 255));
+    // 绑定新变量 `p`，同时对 `Point` 进行解构
+    let p @ Point { x: px, y: py } = Point { x: 10, y: 23 };
+    println!("x: {}, y: {}", px, py);
+    println!("{:?}", p);
 
-    match msg {
-        Message::ChangeColor(Color::Rgb(r, g, b)) => {
-            println!("Change the color to red {}, green {}, and blue {}", r, g, b)
+    let point = Point { x: 10, y: 5 };
+    if let p @ Point { x: x @ 10, y } = point {
+        println!("x is {} and y is {}, p.x is {}", x, y, p.x);
+        println!("p is {:?}", p);
+    } else {
+        println!("x was not 10 :(");
+    }
+
+    // 新语法测试
+    match 1 {
+        num @ (1 | 2) => {
+            println!("hi ~:{}", num);
         }
-        Message::ChangeColor(Color::Hsv(h, s, v)) => {
-            println!(
-                "Change the color to hue {}, saturation {}, and value {}",
-                h, s, v
-            )
-        }
-        _ => (),
+        _ => {}
     }
 }
