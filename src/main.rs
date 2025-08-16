@@ -1,23 +1,27 @@
-#[derive(Debug)]
-struct Name {
-    x: u32,
-    y: u32,
-}
-
-impl Name {
-    // new是Circle的关联函数，因为它的第一个参数不是self，且new并不是关键字
-    fn new(x: u32, y: u32) -> Name {
-        Name { x, y }
+mod my {
+    pub struct Rectangle {
+        width: u32,
+        pub height: u32,
     }
 
-    fn area(&self) -> u32 {
-        println!("hi methods return: {}", self.x);
-        self.x
+    impl Rectangle {
+        pub fn new(width: u32, height: u32) -> Self {
+            Rectangle { width, height }
+        }
+        pub fn width(&self) -> u32 {
+            return self.width;
+        }
+        pub fn height(&self) -> u32 {
+            return self.height;
+        }
     }
 }
 
 fn main() {
-    let my_name = Name { x: 1, y: 2 };
-    let my_age = my_name.area();
-    println!("hi: {}", my_age);
+    let rect1 = my::Rectangle::new(30, 50);
+
+    println!("{}", rect1.width()); // OK
+    println!("{}", rect1.height()); // OK
+                                    // println!("{}", rect1.width); // Error - the visibility of field defaults to private
+    println!("{}", rect1.height); // OK
 }
