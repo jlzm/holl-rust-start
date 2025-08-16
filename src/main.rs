@@ -1,27 +1,23 @@
 #[derive(Debug)]
-struct Point {
-    x: i32,
-    y: i32,
+struct Name {
+    x: u32,
+    y: u32,
 }
+
+impl Name {
+    // new是Circle的关联函数，因为它的第一个参数不是self，且new并不是关键字
+    fn new(x: u32, y: u32) -> Name {
+        Name { x, y }
+    }
+
+    fn area(&self) -> u32 {
+        println!("hi methods return: {}", self.x);
+        self.x
+    }
+}
+
 fn main() {
-    // 绑定新变量 `p`，同时对 `Point` 进行解构
-    let p @ Point { x: px, y: py } = Point { x: 10, y: 23 };
-    println!("x: {}, y: {}", px, py);
-    println!("{:?}", p);
-
-    let point = Point { x: 10, y: 5 };
-    if let p @ Point { x: x @ 10, y } = point {
-        println!("x is {} and y is {}, p.x is {}", x, y, p.x);
-        println!("p is {:?}", p);
-    } else {
-        println!("x was not 10 :(");
-    }
-
-    // 新语法测试
-    match 1 {
-        num @ (1 | 2) => {
-            println!("hi ~:{}", num);
-        }
-        _ => {}
-    }
+    let my_name = Name { x: 1, y: 2 };
+    let my_age = my_name.area();
+    println!("hi: {}", my_age);
 }
