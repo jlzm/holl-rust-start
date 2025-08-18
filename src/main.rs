@@ -1,27 +1,40 @@
-mod my {
-    pub struct Rectangle {
-        width: u32,
-        pub height: u32,
-    }
+pub trait Summary {
+    fn summarize(&self) -> String;
+}
+pub struct Post {
+    pub title: String,   // 标题
+    pub author: String,  // 作者
+    pub content: String, // 内容
+}
 
-    impl Rectangle {
-        pub fn new(width: u32, height: u32) -> Self {
-            Rectangle { width, height }
-        }
-        pub fn width(&self) -> u32 {
-            return self.width;
-        }
-        pub fn height(&self) -> u32 {
-            return self.height;
-        }
+impl Summary for Post {
+    fn summarize(&self) -> String {
+        format!("文章{}, 作者是{}", self.title, self.author)
+    }
+}
+
+pub struct Weibo {
+    pub username: String,
+    pub content: String,
+}
+
+impl Summary for Weibo {
+    fn summarize(&self) -> String {
+        format!("{}发表了微博{}", self.username, self.content)
     }
 }
 
 fn main() {
-    let rect1 = my::Rectangle::new(30, 50);
+    let post = Post {
+        title: "Rust语言简介".to_string(),
+        author: "Sunface".to_string(),
+        content: "Rust棒极了!".to_string(),
+    };
+    let weibo = Weibo {
+        username: "sunface".to_string(),
+        content: "好像微博没Tweet好用".to_string(),
+    };
 
-    println!("{}", rect1.width()); // OK
-    println!("{}", rect1.height()); // OK
-                                    // println!("{}", rect1.width); // Error - the visibility of field defaults to private
-    println!("{}", rect1.height); // OK
+    println!("{}", post.summarize());
+    println!("{}", weibo.summarize());
 }
