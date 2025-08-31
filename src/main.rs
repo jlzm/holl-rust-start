@@ -1,12 +1,16 @@
-fn main() {
-    use std::collections::HashMap;
+use workspace::front_of_house::hosting;
 
-    let mut scores = HashMap::new();
-
-    scores.insert(String::from("Blue"), 10);
-    scores.insert(String::from("Yellow"), 50);
-
-    for (key, value) in &scores {
-        println!("{}: {}", key, value);
+mod front_of_house {
+    pub mod hosting {
+        pub fn add_to_waitlist() -> i32 {
+            99
+        }
     }
+}
+
+fn main() {
+    let lib_val = hosting::add_to_waitlist();
+    let self_val = crate::front_of_house::hosting::add_to_waitlist();
+    println!("lib val: {}", lib_val);
+    println!("self val: {}", self_val);
 }
